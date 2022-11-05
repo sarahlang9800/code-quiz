@@ -1,0 +1,32 @@
+body {
+    background-color: #334349;
+}
+
+p {
+    background-color: radial-gradient(circle, #9dd0cc 0%, #5a9786 100%);
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0;
+    font-size: 40px;
+    height: 70px;
+    width: 200px;
+    float: right;
+}
+
+button {
+    background: radial-gradient(circle, #9dd0cc 0%, #5a9786 100%);
+    border-radius: 2px;
+    color: #13293d;
+    cursor: pointer;
+    font-size: 2em;
+    letter-spacing: 0.21px;
+    line-height: 16px;
+    max-width: 255px;
+    padding: 20px 52px;
+    text-align: center;
+    transition-duration: 0.15s;
+    transition-property: background-color;
+    transition-timing-function: linear;
+    margin-top: 0.6em;
+  }
