@@ -10,45 +10,40 @@
 </head>
 
 <body>
-    <div class="scores"><a href="highscores.html">View Highscores</a></div>
+    <button onclick="viewScores()" id="view-highscores">View Highscores</button>
 
-    <div class="timer">Time: <span id="time">2:00</span></div>
+    <div id="timer">Time:<span id="time">2:00</span></div>
 
     <div class="wrapper">
         <div id="start-screen" class="start">
             <h1>Coding Quiz Challenege</h1>
             <p id="instructions">
-                Lets play a game! How many questions you can get right within the time limit.
-                Incorrect answers will penalize your score/time by 15 seconds!
+                Lets play a game! <br> How many questions you can get right within the time limit. <br> Incorrect answers will penalize your score/time by 15 seconds!
             </p>
             <button onclick="startQuiz()" id="start-btn">Start</button>
         </div>
 
         <div id="question-screen" class="hide">
             <h2 id="question"></h2>
-            <button onclick="quizSelection(0)" id="btn-one"></button>
-            <button onclick="quizSelection(1)" id="btn-two"></button>
-            <button onclick="quizSelection(2)" id="btn-three"></button>
-            <button onclick="quizSelection(3)" id="btn-four"></button>
+            <button class="btn-style" onclick="quizSelection(0)" id="btn-one"></button>
+            <button class="btn-style" onclick="quizSelection(1)" id="btn-two"></button>
+            <button class="btn-style" onclick="quizSelection(2)" id="btn-three"></button>
+            <button class="btn-style" onclick="quizSelection(3)" id="btn-four"></button>
             <hr>
             <h3 id="answer-output"></h3>
         </div>
 
         <div id="end-screen" class="hide">
-            <h2>All done!</h2>
+            <h2 class="done">All done!</h2>
             <p>
                 Enter initials: <input type="text" id="initials" max="3" />
                 <button onclick="onSubmit()" id="submit-btn">Submit</button>
             </p>
         </div>
         <div id="reset-screen">
-            <ul id="highScores"></ul>
-                <button onclick="clearHighScores()">Clear Highscores</button>
-                <button onclick="restartQuiz()">Go Back</button>
-        </div>
-
-        <div id="feedback" class="feedback-hide"></div>
-    </div>
+            <ol id="highScores"></ol>
+            <button class="reset-btn-style" onclick="clearHighScores()">Clear Highscores</button>
+            <button class="reset-btn-style" onclick="restartQuiz()">Go Back</button>
 
     <script src="script.js"></script>
 </body>

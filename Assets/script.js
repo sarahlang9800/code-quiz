@@ -11,8 +11,12 @@ var answerOutput = document.getElementById("answer-output")
 endScreen.style.display = "none";
 var selectionNumber
 var highScores = []
+var list = document.getElementById('highScores');
 var resetScreen = document.getElementById('reset-screen');
 resetScreen.style.display = "none";
+var viewHighscores = document.getElementById("view-highscores")
+var timer = document.getElementById("timer")
+
 
 
 
@@ -33,7 +37,7 @@ function quizQuestions() {
         var btn3 = document.getElementById("btn-three")
         var btn4 = document.getElementById("btn-four")
 
-   
+
         question.innerHTML = questions[index].question;
         btn1.innerHTML = questions[index].choices[0];
         btn2.innerHTML = questions[index].choices[1];
@@ -46,7 +50,6 @@ function quizQuestions() {
 }
 
 function quizSelection(selection) {
-    console.log("quizSelection")
     if (selection === questions[index].answer) {
         answerOutput.innerHTML = "Correct!"
         score += 20
@@ -88,16 +91,34 @@ var questions = [
 
 function onSubmit() {
     var initials = document.getElementById("initials").value;
-    highScores.push({initials, score})
+    highScores.push({ initials, score })
+    var listItem = document.createElement("LI");
+    listItem.appendChild(document.createTextNode(`${initials} - ${score}`));
+    list.appendChild(listItem);
+    console.log(highScores)
     score = 0;
     endScreen.style.display = "none";
     resetScreen.style.display = "block";
-    // document.querySelector("scores").innerHTML = "<li> " + initials + " </li>";
-    console.log(highScores)
+    viewHighscores.style.display = "none"
+    timer.style.display = "none"
+}
+
+function viewScores() {
+    if (startScreen.style.display === "block") {
+        startScreen.style.display = "none"
+    } else if (questionScreen.style.display === "block") {
+        questionScreen.style.display = "none"
+    } else if (endScreen.style.display === "block") {
+        endScreen.style.display = "none"
+    }
+    resetScreen.style.display = "block";
+    viewHighscores.style.display = "none"
+    timer.style.display = "none"
 }
 
 function clearHighScores() {
     highScores = []
+    list.innerHTML = "";
 }
 
 function restartQuiz() {
@@ -105,7 +126,13 @@ function restartQuiz() {
     startScreen.style.display = "block";
     index = 0;
     answerOutput.innerHTML = "";
+    viewHighscores.style.display = "block"
+    timer.style.display = "block"
+    // restart timer in here
 }
+
+
+// WHEN TIMES RUNS OUT SWITCH USER TO HIGHSCORE PAGE 
 
 // Update Highscores Step
 // 1. OnSubmit function should include adding a list item with the inner html set to the last item of the highscores array.
