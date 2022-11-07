@@ -2,19 +2,56 @@ body {
     background-color: #334349;
 }
 
-p {
+a {
+    color: black;
+    text-decoration: none;
+    font-size: 25px;
+    float: right;
+}
+
+a:hover {
+    text-decoration:underline;
+    color: #9dd0cc;
+}
+
+.start h1 {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* #start-screen {
+    display: block;
+}
+
+#question-screen {
+    display: none;
+} */
+
+#instructions {
     background-color: radial-gradient(circle, #9dd0cc 0%, #5a9786 100%);
     display: inline-flex;
     align-items: center;
     justify-content: center;
     margin: 0;
-    font-size: 40px;
+    font-size: 20px;
     height: 70px;
     width: 200px;
-    float: right;
 }
 
-button {
+#question-screen button {
+    padding: 20px 50px;
+}
+
+/* .hide  {
+    display: none;
+}
+
+.display {
+    display: block;
+} */
+
+#start-btn, #submit-btn{
     background: radial-gradient(circle, #9dd0cc 0%, #5a9786 100%);
     border-radius: 2px;
     color: #13293d;
