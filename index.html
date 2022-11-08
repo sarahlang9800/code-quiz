@@ -6,13 +6,14 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Code Quiz</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="./Assets/style.css" />
 </head>
 
 <body>
+    <!-- Main/Starting page -->
     <button onclick="viewScores()" id="view-highscores">View Highscores</button>
 
-    <div id="timer">Time:<span id="time">2:00</span></div>
+    <div id="timer">Time:<span id="time">1:00</span></div>
 
     <div class="wrapper">
         <div id="start-screen" class="start">
@@ -23,6 +24,7 @@
             <button onclick="startQuiz()" id="start-btn">Start</button>
         </div>
 
+        <!-- Quiz screen -->
         <div id="question-screen" class="hide">
             <h2 id="question"></h2>
             <button class="btn-style" onclick="quizSelection(0)" id="btn-one"></button>
@@ -33,6 +35,7 @@
             <h3 id="answer-output"></h3>
         </div>
 
+        <!-- End screen. Input initilas input to store highscores -->
         <div id="end-screen" class="hide">
             <h2 class="done">All done!</h2>
             <p>
@@ -40,12 +43,14 @@
                 <button onclick="onSubmit()" id="submit-btn">Submit</button>
             </p>
         </div>
+
+        <!-- Highscores screen -->
         <div id="reset-screen">
             <ol id="highScores"></ol>
             <button class="reset-btn-style" onclick="clearHighScores()">Clear Highscores</button>
             <button class="reset-btn-style" onclick="restartQuiz()">Go Back</button>
 
-    <script src="script.js"></script>
+    <script src="./Assets/script.js"></script>
 </body>
 
 </html>

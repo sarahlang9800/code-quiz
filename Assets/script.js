@@ -1,33 +1,36 @@
-var start = document.getElementById("start");
-var time = document.getElementById("timer");
-var instructions = document.getElementById("instructions");
 var index = 0;
 var score = 0;
-var startScreen = document.getElementById('start-screen');
-var questionScreen = document.getElementById('question-screen');
-questionScreen.style.display = "none";
-var endScreen = document.getElementById('end-screen');
-var answerOutput = document.getElementById("answer-output")
-endScreen.style.display = "none";
-var selectionNumber
 var highScores = []
+var selectionNumber
+var endScreen = document.getElementById('end-screen');
 var list = document.getElementById('highScores');
 var resetScreen = document.getElementById('reset-screen');
+var timer = document.getElementById("timer");
+
+// Main/Starting screen 
+var instructions = document.getElementById("instructions");
+var startScreen = document.getElementById('start-screen');
+var start = document.getElementById("start");
+var viewHighscores = document.getElementById("view-highscores");
+
+// Question screen
+var questionScreen = document.getElementById('question-screen');
+var answerOutput = document.getElementById("answer-output");
+
+// Allows switching between screens by hiding the rest
+questionScreen.style.display = "none";
+endScreen.style.display = "none";
 resetScreen.style.display = "none";
-var viewHighscores = document.getElementById("view-highscores")
-var timer = document.getElementById("timer")
 
-
-
-
-// FIRST display #instructions 
-
+// FIRST display instructions and starts quiz
 function startQuiz() {
     startScreen.style.display = "none";
     questionScreen.style.display = "block";
     quizQuestions()
+    updateCountdown()
 }
 
+// starts quiz 
 function quizQuestions() {
     console.log("quizQuestions")
     if (index < questions.length) {
@@ -46,21 +49,11 @@ function quizQuestions() {
     } else {
         questionScreen.style.display = "none";
         endScreen.style.display = "block";
+        reset()
     }
 }
 
-function quizSelection(selection) {
-    if (selection === questions[index].answer) {
-        answerOutput.innerHTML = "Correct!"
-        score += 20
-    } else {
-        answerOutput.innerHTML = "Wrong!"
-    }
-    index++;
-    quizQuestions();
-
-}
-
+// Quiz questions 
 var questions = [
     {
         question: "When positioning elements, which is the normal flow/default value?",
@@ -89,6 +82,43 @@ var questions = [
     }
 ];
 
+// Timmer starts and resets if time runs out sends you directly to initials input screen
+let startingTime = 60;
+function updateCountdown() {
+    let countdownInterval = setInterval(function () {
+        if (startingTime >= 1) {
+            timer.textContent = startingTime;
+            startingTime--;
+        } else {
+            timer.textContent = "Time's up!";
+            clearInterval(countdownInterval)
+            onSubmit()
+            reset()
+            questionScreen.style.display = "none";
+            resetScreen.style.display = "none";
+            endScreen.style.display = "block"
+        }
+    }, 1000)
+}
+
+function reset() {
+    startingTime = 60;
+}
+
+// tells you if you got the aswer right or wrong and takes 15 seconds off if the abswer is wrong.
+function quizSelection(selection) {
+    if (selection === questions[index].answer) {
+        answerOutput.innerHTML = "Correct!"
+        score += 20
+    } else {
+        answerOutput.innerHTML = "Wrong!"
+        startingTime -= 15;
+    }
+    index++;
+    quizQuestions();
+}
+
+// submits and stores players highscores with their initials 
 function onSubmit() {
     var initials = document.getElementById("initials").value;
     highScores.push({ initials, score })
@@ -97,12 +127,13 @@ function onSubmit() {
     list.appendChild(listItem);
     console.log(highScores)
     score = 0;
+    timer.style.display = "none"
     endScreen.style.display = "none";
     resetScreen.style.display = "block";
-    viewHighscores.style.display = "none"
-    timer.style.display = "none"
+    viewHighscores.style.display = "none";
 }
 
+// Highscores page 
 function viewScores() {
     if (startScreen.style.display === "block") {
         startScreen.style.display = "none"
@@ -114,8 +145,10 @@ function viewScores() {
     resetScreen.style.display = "block";
     viewHighscores.style.display = "none"
     timer.style.display = "none"
+    startScreen.style.display = "none"
 }
 
+// button options to either clear highscores or go back to try the quiz again.
 function clearHighScores() {
     highScores = []
     list.innerHTML = "";
@@ -128,82 +161,6 @@ function restartQuiz() {
     answerOutput.innerHTML = "";
     viewHighscores.style.display = "block"
     timer.style.display = "block"
-    // restart timer in here
+    // restart timer
+    reset()
 }
-
-
-// WHEN TIMES RUNS OUT SWITCH USER TO HIGHSCORE PAGE 
-
-// Update Highscores Step
-// 1. OnSubmit function should include adding a list item with the inner html set to the last item of the highscores array.
-// 2. If they click clear highscores you’ll need to reset the unordered list somehow
-
-// set a timmer that looses 15 seconds every time a question is answered wrong 
-// var startTime = 2;
-// let timeRemaining = startTime * 120;
-// var countdownEl = document.getElementById("time");
-// setInterval(updateTime, 1000);
-// function updateTime() {
-//     const minutes = Math.floor(time / 120);
-//     let seconds = time % 120
-//     seconds = seconds < 1 ? "0" + seconds : seconds;
-//     countdownEl.innerHTML = `${minutes}: ${seconds}`;
-//     time--;
-
-// }
-
-
-// // start button starts timmer and starts looping through questions 
-// startBtnEl.addEventListener("click", startTime);
-
-
-
-
-// var timeRemaining = 60;
-// var timerInterval;
-// function startTimer() {
-//     time.textContent = timeRemaining
-//     timerInterval = setInterval(function () {
-//         timeRemaining--;
-//         time.textContent = timeRemaining
-
-//         if (timeRemaining === 0) {
-//             clearInterval(timerInterval);
-//         }
-//     }, 1000);
-// }
-
-
-
-
-// timer 
-// const startingTime = 1;
-// let time = startingTime * 60;
-
-// const countdownEl = document.getElementById("time");
-
-// setInterval(updateCountdown, 1000);
-
-// function updateCountdown() {
-//     const minutes = Math.floor(time / 60);
-//     let seconds = time % 60;
-
-//     seconds = seconds < 1 ? "0" + seconds : seconds;
-
-//     countdownEl.innerHTML = `${minutes}: ${seconds}`;
-//     time--;
-// }
-
-
-// // // questions 
-
-
-
-
-// // // if true and if false 
-
-
-
-
-
-// // // high score 
