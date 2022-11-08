@@ -2,12 +2,11 @@ var index = 0;
 var score = 0;
 var highScores = []
 var selectionNumber
-var endScreen = document.getElementById('end-screen');
 var list = document.getElementById('highScores');
 var resetScreen = document.getElementById('reset-screen');
 var timer = document.getElementById("timer");
 
-// Main/Starting screen 
+// Main/Starting screen varriables
 var instructions = document.getElementById("instructions");
 var startScreen = document.getElementById('start-screen');
 var start = document.getElementById("start");
@@ -17,10 +16,14 @@ var viewHighscores = document.getElementById("view-highscores");
 var questionScreen = document.getElementById('question-screen');
 var answerOutput = document.getElementById("answer-output");
 
+// End screen
+var endScreen = document.getElementById('end-screen');
+
 // Allows switching between screens by hiding the rest
 questionScreen.style.display = "none";
 endScreen.style.display = "none";
 resetScreen.style.display = "none";
+timer.style.display = "block";
 
 // FIRST display instructions and starts quiz
 function startQuiz() {
@@ -32,7 +35,6 @@ function startQuiz() {
 
 // starts quiz 
 function quizQuestions() {
-    console.log("quizQuestions")
     if (index < questions.length) {
         var question = document.getElementById("question")
         var btn1 = document.getElementById("btn-one")
@@ -82,7 +84,7 @@ var questions = [
     }
 ];
 
-// Timmer starts and resets if time runs out sends you directly to initials input screen
+// Timer starts and resets if time runs out sends you directly to initials input screen
 let startingTime = 60;
 function updateCountdown() {
     let countdownInterval = setInterval(function () {
@@ -125,12 +127,11 @@ function onSubmit() {
     var listItem = document.createElement("LI");
     listItem.appendChild(document.createTextNode(`${initials} - ${score}`));
     list.appendChild(listItem);
-    console.log(highScores)
     score = 0;
-    timer.style.display = "none"
+    timer.style.display = "none";
     endScreen.style.display = "none";
-    resetScreen.style.display = "block";
     viewHighscores.style.display = "none";
+    resetScreen.style.display = "block";
 }
 
 // Highscores page 
