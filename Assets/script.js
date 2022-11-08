@@ -95,10 +95,7 @@ function updateCountdown() {
             timer.textContent = "Time's up!";
             clearInterval(countdownInterval)
             onSubmit()
-            reset()
-            questionScreen.style.display = "none";
-            resetScreen.style.display = "none";
-            endScreen.style.display = "block"
+            endQuiz()
         }
     }, 1000)
 }
@@ -117,7 +114,18 @@ function quizSelection(selection) {
         startingTime -= 15;
     }
     index++;
-    quizQuestions();
+    if (timer <= 0 || questions[index] === questions.length) {
+        endQuiz()
+    } else {
+        quizQuestions();
+    }
+}
+
+function endQuiz() {
+    timer.style.display = "none";
+    questionScreen.style.display = "none";
+    resetScreen.style.display = "none";
+    endScreen.style.display = "block";
 }
 
 // submits and stores players highscores with their initials 
@@ -128,7 +136,6 @@ function onSubmit() {
     listItem.appendChild(document.createTextNode(`${initials} - ${score}`));
     list.appendChild(listItem);
     score = 0;
-    timer.style.display = "none";
     endScreen.style.display = "none";
     viewHighscores.style.display = "none";
     resetScreen.style.display = "block";
@@ -144,9 +151,9 @@ function viewScores() {
         endScreen.style.display = "none"
     }
     resetScreen.style.display = "block";
-    viewHighscores.style.display = "none"
-    timer.style.display = "none"
-    startScreen.style.display = "none"
+    viewHighscores.style.display = "none";
+    timer.style.display = "none";
+    startScreen.style.display = "none";
 }
 
 // button options to either clear highscores or go back to try the quiz again.
@@ -160,8 +167,8 @@ function restartQuiz() {
     startScreen.style.display = "block";
     index = 0;
     answerOutput.innerHTML = "";
-    viewHighscores.style.display = "block"
-    timer.style.display = "block"
+    viewHighscores.style.display = "block";
+    timer.style.display = "block";
     // restart timer
     reset()
 }
